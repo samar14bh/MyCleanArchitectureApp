@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MyCleanArchitectureApp.Domain.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List Of Customers</h1>
+
+<p>
+    <a asp-action="AddCustomer">Create New</a>
+</p>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom du Client</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@customer.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@customer.Id">Delete</a>
+                        <a asp-action="AddMovieToFavorite" asp-route-customerId="@customer.Id" class="btn btn-primary">Add Movie to Favorite</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucun client trouvé.</p>
+}

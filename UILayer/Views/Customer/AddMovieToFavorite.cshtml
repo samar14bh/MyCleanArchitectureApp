@@ -1,0 +1,23 @@
+﻿@model MyCleanArchitectureApp.UI.ViewModel.AddMovieToFavoriteViewModel
+
+@{
+    ViewData["Title"] = "Add Movie to Favorite";
+}
+
+<h2>Add Movie to Favorite for @Model.CustomerId</h2>
+
+<form asp-action="AddMovieToFavorite" method="post">
+    <div class="form-group">
+        <label for="MovieId">Select a Movie</label>
+        <select class="form-control" id="MovieId" name="movieId" required>
+            <option value="">Select a movie</option>
+            @foreach (var movie in Model.Movies)
+            {
+                <option value="@movie.Id">@movie.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add to Favorite</button>
+</form>
+

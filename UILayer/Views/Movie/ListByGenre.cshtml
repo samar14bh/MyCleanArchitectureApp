@@ -1,0 +1,18 @@
+﻿@model MyCleanArchitectureApp.UI.ViewModel.MovieListByGenreViewModel
+
+
+<h2>Movies Grouped by Genre</h2>
+
+@foreach (var genreGroup in Model.GroupedMovies)
+{
+    <h3>@genreGroup.Key</h3> <!-- Genre name -->
+
+    <ul>
+        @foreach (var movie in genreGroup.Value)
+        {
+            <li>@movie.Name</li> <!-- Movie name -->
+        }
+    </ul>
+}
+
+

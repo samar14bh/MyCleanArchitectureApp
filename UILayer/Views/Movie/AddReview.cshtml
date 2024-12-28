@@ -1,0 +1,23 @@
+﻿@model MyCleanArchitectureApp.UI.ViewModel.ReviewViewModel
+
+@{
+    ViewData["Title"] = "Add Review";
+}
+
+<h1>Add Review for Movie</h1>
+
+<form asp-action="AddReview" method="post">
+    <div class="form-group">
+        <label for="Rating">Rating (1-5)</label>
+        <input type="number" name="Rating" id="Rating" class="form-control" min="1" max="5" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Text">Review Text</label>
+        <textarea name="Text" id="Text" class="form-control" required></textarea>
+    </div>
+
+    <input type="hidden" name="MovieId" value="@Model.MovieId" />
+
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+</form>
