@@ -12,6 +12,6 @@ namespace MyCleanArchitectureApp.Domain
         public int MovieId { get; set; }
         public Movie Movie { get; set; }
         public string Text { get; set; }
-        public int Rating { get; set; } // Note sur 5
+        public int Rating { get; set; }
     }
 }

@@ -27,8 +27,10 @@ namespace MyCleanArchitectureApp.Infrastructure.Repositories
 
             public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
             {
-                return await _dbContext.Movies.ToListAsync();
-            }
+            return await _dbContext.Movies
+                       .Include(m => m.Genre) 
+                       .ToListAsync();
+        }
 
             public async Task AddAsync(Movie movie)
             {

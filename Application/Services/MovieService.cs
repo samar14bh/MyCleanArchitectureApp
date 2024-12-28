@@ -41,7 +41,6 @@ namespace MyCleanArchitectureApp.Applications.Services
 
         public async Task UpdateMovieAsync(Movie movie)
         {
-            // Ensure that the movie is valid (e.g., exists in the database) before updating
             var existingMovie = await _movieRepository.GetByIdAsync(movie.Id);
 
             if (existingMovie == null)
@@ -49,28 +48,23 @@ namespace MyCleanArchitectureApp.Applications.Services
                 throw new KeyNotFoundException($"Movie with ID {movie.Id} not found.");
             }
 
-            // Update the movie
             await _movieRepository.UpdateAsync(movie);
         }
         public async Task AddMovieReviewAsync(Review review)
         {
-            // Ensure movie exists
             var movie = await _movieRepository.GetByIdAsync(review.MovieId);
             if (movie == null)
             {
                 throw new KeyNotFoundException("Movie not found.");
             }
 
-            // Validate rating (between 1 and 5)
             if (review.Rating < 1 || review.Rating > 5)
             {
                 throw new ArgumentOutOfRangeException("Rating must be between 1 and 5.");
             }
 
-            // Save review
             await _reviewRepository.AddAsync(review);
 
-            // Recalculate average rating
             var reviews = await _reviewRepository.GetReviewsByMovieIdAsync(review.MovieId);
             var averageRating = reviews.Average(r => r.Rating);
             movie.AverageRating = averageRating;
@@ -80,7 +74,7 @@ namespace MyCleanArchitectureApp.Applications.Services
 
         public async Task DeleteMovieAsync(int id)
         {
-            // Ensure that the movie exists before deleting
+       
             var existingMovie = await _movieRepository.GetByIdAsync(id);
 
             if (existingMovie == null)
@@ -88,7 +82,7 @@ namespace MyCleanArchitectureApp.Applications.Services
                 throw new KeyNotFoundException($"Movie with ID {id} not found.");
             }
 
-            // Delete the movie
+           
             await _movieRepository.DeleteMovieAsync(id);
         }
     }

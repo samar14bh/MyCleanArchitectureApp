@@ -19,23 +19,18 @@ namespace MyCleanArchitectureApp.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Récupérer tous les clients via le service
             var customers = await _customerService.GetAllCustomersAsync();
 
-            // Créer un modèle de vue pour la liste des clients
             
 
-            // Passer le modèle à la vue
             return View(customers);
         }
 
 
-        // GET: Customer/Details/5
         [Route("Customer/Details/{customerId}")]
 
         public async Task<IActionResult> Details(int customerId)
         {
-            // Récupérer le client par ID
             var customer = await _customerService.GetCustomerByIdAsync(customerId);
 
             if (customer == null)
@@ -43,28 +38,22 @@ namespace MyCleanArchitectureApp.Web.Controllers
                 return NotFound();
             }
 
-            // Récupérer les films favoris du client
             var favoriteMovies = await _customerService.GetFavoriteMoviesAsync(customerId);
 
-            // Créer un modèle pour la vue
             var model = new CustomerDetailsViewModel
             {
                 Customer = customer,
                 FavoriteMovies = favoriteMovies.ToList()
             };
 
-            // Passer le modèle à la vue
             return View(model);
         }
 
-        // GET: Customer/Add
         public IActionResult AddCustomer()
         {
-            // Return the view to add a new customer
             return View();
         }
 
-        // POST: Customer/Add
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddCustomer(string name)
@@ -85,7 +74,6 @@ namespace MyCleanArchitectureApp.Web.Controllers
             return View();
         }
 
-        // GET: Customer/Delete/5
         [Route("Customer/Delete/{customerId}")]
         public async Task<IActionResult> DeleteCustomer(int customerId)
         {
@@ -99,7 +87,6 @@ namespace MyCleanArchitectureApp.Web.Controllers
             return View(customer);
         }
 
-        // POST: Customer/Delete/5
         [HttpPost, ActionName("DeleteCustomer")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int customerId)
@@ -109,7 +96,6 @@ namespace MyCleanArchitectureApp.Web.Controllers
         }
 
 
-        // GET: Customer/AddMovieToFavorite/5
         [Route("Customer/AddMovieToFavorite/{customerId}")]
         public async Task<IActionResult> AddMovieToFavorite(int customerId)
         {
@@ -119,10 +105,8 @@ namespace MyCleanArchitectureApp.Web.Controllers
                 return NotFound();
             }
 
-            // Get the list of all movies that could be added to the favorite list
             var movies = await _movieService.GetAllMoviesAsync();
 
-            // Prepare a model for the view
             var model = new AddMovieToFavoriteViewModel
             {
                 CustomerId = customerId,
@@ -132,7 +116,6 @@ namespace MyCleanArchitectureApp.Web.Controllers
             return View(model);
         }
 
-        // POST: Customer/AddMovieToFavorite/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Customer/AddMovieToFavorite/{customerId}")]
@@ -156,7 +139,6 @@ namespace MyCleanArchitectureApp.Web.Controllers
             return RedirectToAction("Details", new { customerId });
         }
 
-        // Other actions like Details, AddCustomer, DeleteCustomer, etc.
     }
 }
 

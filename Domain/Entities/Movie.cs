@@ -10,10 +10,10 @@ namespace MyCleanArchitectureApp.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int GenreId { get; set; }  // Clé étrangère vers Genre
-        public Genre Genre { get; set; }  // Navigation vers Genre
+        public int GenreId { get; set; } 
+        public Genre Genre { get; set; }
         public List<Review> Reviews { get; set; }
         public List<Customer> FavoriteCustomers { get; set; }
-        public double AverageRating { get; set; }  // Store average rating
+        public double AverageRating { get; set; } 
     }
 }
