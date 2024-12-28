@@ -20,11 +20,19 @@ namespace MyCleanArchitectureApp.Infrastructure
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         // Optionally, override OnModelCreating to configure the model if needed
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            // Example: Set table names, relationships, etc.
-        }
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Seed Genres table with some initial data
+        modelBuilder.Entity<Genre>().HasData(
+            new Genre { Id = 1, Name = "Action" },
+            new Genre { Id = 2, Name = "Comedy" },
+            new Genre { Id = 3, Name = "Drama" },
+            new Genre { Id = 4, Name = "Horror" },
+            new Genre { Id = 5, Name = "Sci-Fi" }
+        );
+    }
     }
 }
 }
